@@ -1,0 +1,9 @@
+
+%td= object.name
+%td= object.description
+%td= object.location
+%td= object.price
+%td= object.starts_at
+%td= object.capacity
+%td.actions
+  = smart_listing_item_actions [{name: :edit, url: edit_event_path(object)}, {name: :destroy, url: event_path(object), confirmation: "Are you sure you want to delete this?"}]

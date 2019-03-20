@@ -1,0 +1,23 @@
+- unless smart_listing.empty?
+  %table.table.table-striped
+    %thead
+      %th.col-md-3= smart_listing.sortable "Name", "name"
+      %th.col-md-3= "Description"
+      %th.col-md-4= smart_listing.sortable "location", "location"
+      %th.col-md-3= "Price"
+      %th.col-md-3= "Starts"
+      %th.col-md-3= "Capacity"
+      %th.col-md-3= "Actions"
+    %tbody
+      - smart_listing.collection.each do |o|
+        %tr.editable{data: {id: o.id}}
+          -# Render user row partial
+          = smart_listing.render object: o, partial: "event", locals: {object: o}
+
+      -# Render nice "new item" button fitted for Bootstrap 3 by default
+      = smart_listing.item_new colspan: 6, link: new_event_path
+      
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links
+- else
+  %p.warning No records!

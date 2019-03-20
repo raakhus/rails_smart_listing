@@ -1,11 +1,12 @@
 class EventsController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
+  before_action :set_event, only: [:edit, :update, :destroy]
   def index
     smart_listing_create :events, 
-                         Event.active, 
-                         partial: "events/list", 
-                         default_sort: {name: "asc"}
+                       Event.all, 
+                       partial: "events/list", 
+                       default_sort: {name: "asc"}
   end
   
   def new
@@ -17,6 +18,7 @@ class EventsController < ApplicationController
   end
   
   def edit
+    
   end
   
   def update
@@ -39,6 +41,10 @@ class EventsController < ApplicationController
   
   def event_params
     params.require(:event).permit(:name, :description, :location, :price, :starts_at, :image_file_name, :capacity)
+  end
+
+  def set_event
+    @event = Event.find(params[:id])
   end
 end
 
